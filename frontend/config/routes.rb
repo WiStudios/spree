@@ -2,11 +2,14 @@ Spree::Core::Engine.add_routes do
   scope '(:locale)', locale: /#{Spree.available_locales.join('|')}/, defaults: { locale: nil } do
     root to: 'home#index'
 
-    resources :products, only: [:index, :show], path: "/#{Spree::Config[:storefront_products_path]}"
+    get "/*id/search", to: 'taxons#show', as: :nested_taxons, :defaults => { :id => 'stock-animation' }
+    get "/*id/search", to: 'taxons#show', as: :products, :defaults => { :id => 'stock-animation' }
+
+    # resources :products, only: [:index, :show], path: "/#{Spree::Config[:storefront_products_path]}"
 
     get "/#{Spree::Config[:storefront_products_path]}/:id/related", to: 'products#related'
     # route globbing for pretty nested taxon and product paths
-    get "/#{Spree::Config[:storefront_taxons_path]}/*id", to: 'taxons#show', as: :nested_taxons
+    # get "/#{Spree::Config[:storefront_taxons_path]}/*id", to: 'taxons#show', as: :nested_taxons
     get '/product_carousel/:id', to: 'taxons#product_carousel'
 
     # non-restful checkout stuff
@@ -38,5 +41,7 @@ Spree::Core::Engine.add_routes do
 
     get '/forbidden', to: 'errors#forbidden', as: :forbidden
     get '/unauthorized', to: 'errors#unauthorized', as: :unauthorized
+
+    resources :products, only: [:show], path: "/:taxon_id"
   end
 end

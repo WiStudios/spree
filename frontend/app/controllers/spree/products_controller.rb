@@ -52,7 +52,13 @@ module Spree
     end
 
     def load_product
-      @product = current_store.products.for_user(try_spree_current_user).friendly.find(params[:id])
+      # @product = current_store.products.for_user(try_spree_current_user).friendly.find(params[:id])
+      if params[:taxon_id].present?
+        @taxon = taxons_scope.friendly.find(params[:taxon_id])
+        @product = current_store.products.for_user(try_spree_current_user).in_taxon(@taxon).friendly.find(params[:id])
+      else
+        @product = current_store.products.for_user(try_spree_current_user).friendly.find(params[:id])
+      end
     end
 
     def load_taxon
