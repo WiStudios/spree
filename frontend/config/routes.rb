@@ -2,8 +2,8 @@ Spree::Core::Engine.add_routes do
   scope '(:locale)', locale: /#{Spree.available_locales.join('|')}/, defaults: { locale: nil } do
     root to: 'home#index'
 
-    get "/*id/search", to: 'taxons#show', as: :nested_taxons, :defaults => { :id => 'stock-animation' }
-    get "/*id/search", to: 'taxons#show', as: :products, :defaults => { :id => 'stock-animation' }
+    # get "/*id/search", to: 'taxons#show', as: :nested_taxons, :defaults => { :id => 'stock-animation' }
+    # get "/*id/search", to: 'taxons#show', as: :products, :defaults => { :id => 'stock-animation' }
 
     # resources :products, only: [:index, :show], path: "/#{Spree::Config[:storefront_products_path]}"
 
@@ -42,6 +42,6 @@ Spree::Core::Engine.add_routes do
     get '/forbidden', to: 'errors#forbidden', as: :forbidden
     get '/unauthorized', to: 'errors#unauthorized', as: :unauthorized
 
-    resources :products, only: [:show], path: "/:taxon_id"
+    # resources :products, only: [:show], path: "/:taxon_id"
   end
 end
