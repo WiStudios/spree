@@ -13,8 +13,8 @@ Spree::Core::Engine.add_routes do
     get '/product_carousel/:id', to: 'taxons#product_carousel'
 
     # non-restful checkout stuff
-    patch '/checkout/update/:state', to: 'checkout#update', as: :update_checkout
-    get '/checkout/:state', to: 'checkout#edit', as: :checkout_state
+    # patch '/checkout/update/:state', to: 'checkout#update', as: :update_checkout
+    # get '/checkout/:state', to: 'checkout#edit', as: :checkout_state
     get '/checkout', to: 'checkout#edit', as: :checkout
 
     resources :orders, except: [:index, :new, :create, :destroy]
@@ -22,8 +22,8 @@ Spree::Core::Engine.add_routes do
     resources :addresses, except: [:index, :show]
 
     get '/cart', to: 'orders#edit', as: :cart
-    patch '/cart', to: 'orders#update', as: :update_cart
-    put '/cart/empty', to: 'orders#empty', as: :empty_cart
+    # patch '/cart', to: 'orders#update', as: :update_cart
+    # put '/cart/empty', to: 'orders#empty', as: :empty_cart
 
     get '/content/cvv', to: 'content#cvv', as: :cvv
     get '/content/test', to: 'content#test'
