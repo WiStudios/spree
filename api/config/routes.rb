@@ -7,15 +7,15 @@ end
 Spree::Core::Engine.add_routes do
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
-      resources :promotions, only: [:show]
+      # resources :promotions, only: [:show]
 
-      resources :customer_returns, only: [:index]
-      resources :reimbursements, only: [:index]
+      # resources :customer_returns, only: [:index]
+      # resources :reimbursements, only: [:index]
 
       resources :products do
-        resources :images
-        resources :variants
-        resources :product_properties
+        # resources :images
+        # resources :variants
+        # resources :product_properties
       end
 
       concern :order_routes do
@@ -50,7 +50,7 @@ Spree::Core::Engine.add_routes do
 
       resources :checkouts, only: [:update], concerns: :order_routes do
         member do
-          put :next
+          # put :next
           put :advance
         end
       end
@@ -59,40 +59,40 @@ Spree::Core::Engine.add_routes do
         resources :images
       end
 
-      resources :option_types do
-        resources :option_values
-      end
-      resources :option_values
-
-      resources :option_values, only: :index
-
-      get '/orders/mine', to: 'orders#mine', as: 'my_orders'
-      get '/orders/current', to: 'orders#current', as: 'current_order'
+      # resources :option_types do
+      #   resources :option_values
+      # end
+      # resources :option_values
+      #
+      # resources :option_values, only: :index
+      #
+      # get '/orders/mine', to: 'orders#mine', as: 'my_orders'
+      # get '/orders/current', to: 'orders#current', as: 'current_order'
 
       resources :orders, concerns: :order_routes do
-        put :remove_coupon_code, on: :member
+        # put :remove_coupon_code, on: :member
       end
 
-      resources :zones
-      resources :countries, only: [:index, :show] do
-        resources :states, only: [:index, :show]
-      end
+      # resources :zones
+      # resources :countries, only: [:index, :show] do
+      #   resources :states, only: [:index, :show]
+      # end
 
       resources :shipments, only: [:create, :update] do
-        collection do
-          post 'transfer_to_location'
-          post 'transfer_to_shipment'
-          get :mine
-        end
+        # collection do
+        #   post 'transfer_to_location'
+        #   post 'transfer_to_shipment'
+        #   get :mine
+        # end
 
         member do
-          put :ready
-          put :ship
+          # put :ready
+          # put :ship
           put :add
-          put :remove
+          # put :remove
         end
       end
-      resources :states, only: [:index, :show]
+      # resources :states, only: [:index, :show]
 
       resources :taxonomies do
         member do
@@ -107,23 +107,23 @@ Spree::Core::Engine.add_routes do
 
       resources :taxons, only: [:index]
 
-      resources :inventory_units, only: [:show, :update]
+      # resources :inventory_units, only: [:show, :update]
+      #
+      # resources :users do
+      #   resources :credit_cards, only: [:index]
+      # end
 
-      resources :users do
-        resources :credit_cards, only: [:index]
-      end
-
-      resources :properties
+      # resources :properties
       resources :stock_locations do
         resources :stock_movements
         resources :stock_items
       end
 
-      resources :stock_items, only: [:index, :update, :destroy]
-      resources :stores
+      # resources :stock_items, only: [:index, :update, :destroy]
+      # resources :stores
 
-      put '/classifications', to: 'classifications#update', as: :classifications
-      get '/taxons/products', to: 'taxons#products', as: :taxon_products
+      # put '/classifications', to: 'classifications#update', as: :classifications
+      # get '/taxons/products', to: 'taxons#products', as: :taxon_products
     end
 
     namespace :v2 do
@@ -159,10 +159,10 @@ Spree::Core::Engine.add_routes do
           resources :orders, controller: :orders, only: %i[index show]
         end
 
-        resources :countries, only: %i[index]
+        # resources :countries, only: %i[index]
         get '/countries/:iso', to: 'countries#show', as: :country
-        get '/order_status/:number', to: 'order_status#show', as: :order_status
-        resources :products, only: %i[index show]
+        # get '/order_status/:number', to: 'order_status#show', as: :order_status
+        # resources :products, only: %i[index show]
         resources :taxons,   only: %i[index show], id: /.+/
         get '/stores/:code', to: 'stores#show', as: :store
 
