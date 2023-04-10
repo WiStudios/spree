@@ -163,11 +163,11 @@ Spree::Core::Engine.add_routes do
         get '/countries/:iso', to: 'countries#show', as: :country
         # get '/order_status/:number', to: 'order_status#show', as: :order_status
         # resources :products, only: %i[index show]
-        resources :taxons,   only: %i[index show], id: /.+/
-        get '/stores/:code', to: 'stores#show', as: :store
+        # resources :taxons,   only: %i[index show], id: /.+/
+        # get '/stores/:code', to: 'stores#show', as: :store
 
-        resources :menus, only: %i[index show]
-        resources :cms_pages, only: %i[index show]
+        # resources :menus, only: %i[index show]
+        # resources :cms_pages, only: %i[index show]
       end
 
       namespace :platform do
