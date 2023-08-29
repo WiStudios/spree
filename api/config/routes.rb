@@ -18,46 +18,46 @@ Spree::Core::Engine.add_routes do
         # resources :product_properties
       end
 
-      concern :order_routes do
-        member do
-          put :approve
-          put :cancel
-          put :empty
-          put :apply_coupon_code
-        end
+      # concern :order_routes do
+      #   member do
+      #     put :approve
+      #     put :cancel
+      #     put :empty
+      #     put :apply_coupon_code
+      #   end
+      #
+      #   resources :line_items
+      #   resources :payments do
+      #     member do
+      #       put :authorize
+      #       put :capture
+      #       put :purchase
+      #       put :void
+      #       put :credit
+      #     end
+      #   end
+      #
+      #   resources :addresses, only: [:show, :update]
+      #
+      #   resources :return_authorizations do
+      #     member do
+      #       put :add
+      #       put :cancel
+      #       put :receive
+      #     end
+      #   end
+      # end
 
-        resources :line_items
-        resources :payments do
-          member do
-            put :authorize
-            put :capture
-            put :purchase
-            put :void
-            put :credit
-          end
-        end
-
-        resources :addresses, only: [:show, :update]
-
-        resources :return_authorizations do
-          member do
-            put :add
-            put :cancel
-            put :receive
-          end
-        end
-      end
-
-      resources :checkouts, only: [:update], concerns: :order_routes do
-        member do
-          # put :next
-          put :advance
-        end
-      end
-
-      resources :variants do
-        resources :images
-      end
+      # resources :checkouts, only: [:update], concerns: :order_routes do
+      #   member do
+      #     # put :next
+      #     put :advance
+      #   end
+      # end
+      #
+      # resources :variants do
+      #   resources :images
+      # end
 
       # resources :option_types do
       #   resources :option_values
@@ -69,29 +69,29 @@ Spree::Core::Engine.add_routes do
       # get '/orders/mine', to: 'orders#mine', as: 'my_orders'
       # get '/orders/current', to: 'orders#current', as: 'current_order'
 
-      resources :orders, concerns: :order_routes do
-        # put :remove_coupon_code, on: :member
-      end
+      # resources :orders, concerns: :order_routes do
+      #   # put :remove_coupon_code, on: :member
+      # end
 
       # resources :zones
       # resources :countries, only: [:index, :show] do
       #   resources :states, only: [:index, :show]
       # end
 
-      resources :shipments, only: [:create, :update] do
-        # collection do
-        #   post 'transfer_to_location'
-        #   post 'transfer_to_shipment'
-        #   get :mine
-        # end
-
-        member do
-          # put :ready
-          # put :ship
-          put :add
-          # put :remove
-        end
-      end
+      # resources :shipments, only: [:create, :update] do
+      #   # collection do
+      #   #   post 'transfer_to_location'
+      #   #   post 'transfer_to_shipment'
+      #   #   get :mine
+      #   # end
+      #
+      #   member do
+      #     # put :ready
+      #     # put :ship
+      #     put :add
+      #     # put :remove
+      #   end
+      # end
       # resources :states, only: [:index, :show]
 
       resources :taxonomies do
@@ -114,10 +114,10 @@ Spree::Core::Engine.add_routes do
       # end
 
       # resources :properties
-      resources :stock_locations do
-        resources :stock_movements
-        resources :stock_items
-      end
+      # resources :stock_locations do
+      #   resources :stock_movements
+      #   resources :stock_items
+      # end
 
       # resources :stock_items, only: [:index, :update, :destroy]
       # resources :stores
@@ -128,36 +128,36 @@ Spree::Core::Engine.add_routes do
 
     namespace :v2 do
       namespace :storefront do
-        resource :cart, controller: :cart, only: %i[show create destroy] do
-          post   :add_item
-          patch  :empty
-          delete 'remove_line_item/:line_item_id', to: 'cart#remove_line_item', as: :cart_remove_line_item
-          patch  :set_quantity
-          patch  :apply_coupon_code
-          delete 'remove_coupon_code/:coupon_code', to: 'cart#remove_coupon_code', as: :cart_remove_coupon_code
-          delete 'remove_coupon_code', to: 'cart#remove_coupon_code', as: :cart_remove_coupon_code_without_code
-          get :estimate_shipping_rates
-          patch :associate
-          patch :change_currency
-        end
-
-        resource :checkout, controller: :checkout, only: %i[update] do
-          patch :next
-          patch :advance
-          patch :complete
-          post :add_store_credit
-          post :remove_store_credit
-          get :payment_methods
-          get :shipping_rates
-        end
-
-        resource :account, controller: :account, only: %i[show create update]
-
-        namespace :account do
-          resources :addresses, controller: :addresses
-          resources :credit_cards, controller: :credit_cards, only: %i[index show destroy]
-          resources :orders, controller: :orders, only: %i[index show]
-        end
+        # resource :cart, controller: :cart, only: %i[show create destroy] do
+        #   post   :add_item
+        #   patch  :empty
+        #   delete 'remove_line_item/:line_item_id', to: 'cart#remove_line_item', as: :cart_remove_line_item
+        #   patch  :set_quantity
+        #   patch  :apply_coupon_code
+        #   delete 'remove_coupon_code/:coupon_code', to: 'cart#remove_coupon_code', as: :cart_remove_coupon_code
+        #   delete 'remove_coupon_code', to: 'cart#remove_coupon_code', as: :cart_remove_coupon_code_without_code
+        #   get :estimate_shipping_rates
+        #   patch :associate
+        #   patch :change_currency
+        # end
+        #
+        # resource :checkout, controller: :checkout, only: %i[update] do
+        #   patch :next
+        #   patch :advance
+        #   patch :complete
+        #   post :add_store_credit
+        #   post :remove_store_credit
+        #   get :payment_methods
+        #   get :shipping_rates
+        # end
+        #
+        # resource :account, controller: :account, only: %i[show create update]
+        #
+        # namespace :account do
+        #   resources :addresses, controller: :addresses
+        #   resources :credit_cards, controller: :credit_cards, only: %i[index show destroy]
+        #   resources :orders, controller: :orders, only: %i[index show]
+        # end
 
         # resources :countries, only: %i[index]
         get '/countries/:iso', to: 'countries#show', as: :country
@@ -170,114 +170,114 @@ Spree::Core::Engine.add_routes do
         # resources :cms_pages, only: %i[index show]
       end
 
-      namespace :platform do
-        # Promotions API
-        resources :promotions
-
-        # Returns API
-        resources :customer_returns
-        resources :reimbursements
-        resources :return_authorizations do
-          member do
-            put :add
-            put :cancel
-            put :receive
-          end
-        end
-
-        # Product Catalog API
-        resources :products
-        resources :taxonomies
-        resources :taxons
-        resources :classifications do
-          member do
-            put :reposition
-          end
-        end
-        resources :images
-        resources :variants
-        resources :properties
-        resources :product_properties
-        resources :option_types
-        resources :option_values
-
-        # Order API
-        resources :orders do
-          member do
-            put :next
-            put :advance
-            put :approve
-            put :cancel
-            put :empty
-            put :apply_coupon_code
-            put :remove_coupon_code
-          end
-        end
-        resources :line_items
-        resources :payments do
-          member do
-            put :authorize
-            put :capture
-            put :purchase
-            put :void
-            put :credit
-          end
-        end
-
-        # Geo API
-        resources :zones
-        resources :countries, only: [:index, :show]
-        resources :states, only: [:index, :show]
-
-        # Shipment API
-        resources :shipments do
-          collection do
-            post 'transfer_to_location'
-            post 'transfer_to_shipment'
-          end
-          member do
-            put :ready
-            put :ship
-            put :add
-            put :remove
-          end
-        end
-
-        # Inventory API
-        resources :inventory_units
-        resources :stock_items
-        resources :stock_locations
-        resources :stock_movements
-
-        # User API
-        resources :users
-        resources :credit_cards
-        resources :addresses
-
-        # Menu API
-        resources :menus
-        resources :menu_items do
-          member do
-            patch :reposition
-          end
-        end
-
-        # CMS Pages API
-        resources :cms_pages do
-          member do
-            patch :toggle_visibility
-          end
-        end
-
-        resource :cms_sections do
-          member do
-            patch :reposition
-          end
-        end
-
-        # Store API
-        resources :stores
-      end
+      # namespace :platform do
+      #   # Promotions API
+      #   resources :promotions
+      #
+      #   # Returns API
+      #   resources :customer_returns
+      #   resources :reimbursements
+      #   resources :return_authorizations do
+      #     member do
+      #       put :add
+      #       put :cancel
+      #       put :receive
+      #     end
+      #   end
+      #
+      #   # Product Catalog API
+      #   resources :products
+      #   resources :taxonomies
+      #   resources :taxons
+      #   resources :classifications do
+      #     member do
+      #       put :reposition
+      #     end
+      #   end
+      #   resources :images
+      #   resources :variants
+      #   resources :properties
+      #   resources :product_properties
+      #   resources :option_types
+      #   resources :option_values
+      #
+      #   # Order API
+      #   resources :orders do
+      #     member do
+      #       put :next
+      #       put :advance
+      #       put :approve
+      #       put :cancel
+      #       put :empty
+      #       put :apply_coupon_code
+      #       put :remove_coupon_code
+      #     end
+      #   end
+      #   resources :line_items
+      #   resources :payments do
+      #     member do
+      #       put :authorize
+      #       put :capture
+      #       put :purchase
+      #       put :void
+      #       put :credit
+      #     end
+      #   end
+      #
+      #   # Geo API
+      #   resources :zones
+      #   resources :countries, only: [:index, :show]
+      #   resources :states, only: [:index, :show]
+      #
+      #   # Shipment API
+      #   resources :shipments do
+      #     collection do
+      #       post 'transfer_to_location'
+      #       post 'transfer_to_shipment'
+      #     end
+      #     member do
+      #       put :ready
+      #       put :ship
+      #       put :add
+      #       put :remove
+      #     end
+      #   end
+      #
+      #   # Inventory API
+      #   resources :inventory_units
+      #   resources :stock_items
+      #   resources :stock_locations
+      #   resources :stock_movements
+      #
+      #   # User API
+      #   resources :users
+      #   resources :credit_cards
+      #   resources :addresses
+      #
+      #   # Menu API
+      #   resources :menus
+      #   resources :menu_items do
+      #     member do
+      #       patch :reposition
+      #     end
+      #   end
+      #
+      #   # CMS Pages API
+      #   resources :cms_pages do
+      #     member do
+      #       patch :toggle_visibility
+      #     end
+      #   end
+      #
+      #   resource :cms_sections do
+      #     member do
+      #       patch :reposition
+      #     end
+      #   end
+      #
+      #   # Store API
+      #   resources :stores
+      # end
     end
 
     get '/404', to: 'errors#render_404'
